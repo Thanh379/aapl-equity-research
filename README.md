@@ -132,7 +132,7 @@ Two pages built from the same CSV files (`powerbi/AAPL_Dashboard.pbix`):
 
 - The model uses operating cash flow less capex as a simplified FCF proxy and discounts it at WACC. This is not a fully reconstructed unlevered FCFF model; refining interest, taxes, working capital, and non-operating assets is a next step.
 - SQL 07 uses October–September as an approximation for Apple's 52/53-week fiscal years. Its historical P/E proxy uses dividend-adjusted prices and full-year EPS, not point-in-time investable P/E. The annual price-change query measures first-to-last observed trading day; 2026 is partial-year.
-- The DCF holds the share count flat, but Apple buys back ~1.6% of its shares per year, which raises value per share over time.
+- The DCF holds the share count flat. It does not separately forecast future buyback spending or changes in the number of shares.
 - Interest expense is not disclosed after FY2023, so cost of debt uses FY2023 (debt is only 1.5% of capital, so WACC barely changes).
 - Simple-average growth mixes a weak year (FY2023) and a super-cycle year (FY2026).
 - Peer multiples are a snapshot from one day (Nov 13, 2026).
@@ -146,7 +146,7 @@ conda activate stock_project
 pip install -r requirements.txt
 ```
 
-1. In MySQL Workbench, create the schema `aapl_stock_project` and a user with access to it
+1. In MySQL Workbench, create the schema `aapl_stock_project` and the local user `aapl_user` with access to it (the username used in notebook 01)
 2. Run `notebooks/01_data_collection.ipynb` (asks for the MySQL password – it is never saved in the file)
 3. Run the scripts in `sql/` in order
 4. Run `notebooks/02_beta_wacc.ipynb` and `notebooks/03_dcf_comps_charts.ipynb`
