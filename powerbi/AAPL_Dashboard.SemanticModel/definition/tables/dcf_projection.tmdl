@@ -1,0 +1,45 @@
+table dcf_projection
+	lineageTag: ce683f51-78d6-4e3d-8bee-166ea15ffd82
+
+	column year
+		dataType: string
+		lineageTag: dcb870d3-5029-495e-bdb7-11830900e9b3
+		summarizeBy: none
+		sourceColumn: year
+
+	column revenue
+		dataType: double
+		formatString: #,0
+		lineageTag: 791acb54-dfab-4d4a-a39d-a96e17b622f3
+		summarizeBy: none
+		sourceColumn: revenue
+
+	column free_cash_flow
+		dataType: double
+		formatString: #,0
+		lineageTag: 171698ef-0b0a-496f-ba31-694b4ca4eb31
+		summarizeBy: none
+		sourceColumn: free_cash_flow
+
+	column pv_fcf
+		dataType: double
+		formatString: #,0
+		lineageTag: 9bc4d5bf-dba8-46bb-933c-eacc75045738
+		summarizeBy: none
+		sourceColumn: pv_fcf
+
+	partition dcf_projection = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ProjectFolder & "powerbi\dcf_projection.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    TextCols = {"year"},
+				    DateCols = {},
+				    NumberCols = List.Difference(Table.ColumnNames(Headers), TextCols & DateCols),
+				    Typed = Table.TransformColumnTypes(Headers,
+				        List.Transform(TextCols, each {_, type text}) &
+				        List.Transform(DateCols, each {_, type date}) &
+				        List.Transform(NumberCols, each {_, type number}), "en-US")
+				in
+				    Typed

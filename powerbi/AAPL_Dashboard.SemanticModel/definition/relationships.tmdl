@@ -1,0 +1,11 @@
+relationship cash_flow_to_income_statement
+	fromColumn: cash_flow.fiscal_year
+	toColumn: income_statement.fiscal_year
+
+relationship balance_sheet_to_income_statement
+	fromColumn: balance_sheet.fiscal_year
+	toColumn: income_statement.fiscal_year
+
+relationship revenue_by_product_to_income_statement
+	fromColumn: revenue_by_product.fiscal_year
+	toColumn: income_statement.fiscal_year

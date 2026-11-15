@@ -1,0 +1,94 @@
+cultureInfo en-US
+
+	linguisticMetadata =
+			{
+			  "Version": "2.0.0",
+			  "Language": "en-US",
+			  "Entities": {
+			    "dcf_projection.year": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "dcf_projection",
+			          "ConceptualProperty": "year"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Fiscal year": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "dcf_projection.revenue": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "dcf_projection",
+			          "ConceptualProperty": "revenue"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Revenue": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "dcf_projection.free_cash_flow": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "dcf_projection",
+			          "ConceptualProperty": "free_cash_flow"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Free cash flow": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "dcf_projection.pv_fcf": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "dcf_projection",
+			          "ConceptualProperty": "pv_fcf"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "PV of FCF": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    }
+			  }
+			}
+		contentType: json

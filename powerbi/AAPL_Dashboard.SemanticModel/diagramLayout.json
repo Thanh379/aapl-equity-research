@@ -1,0 +1,152 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 750.92883219000851,
+            "y": 178.9690100171058
+          },
+          "nodeIndex": "_Measures",
+          "nodeLineageTag": "842672cf-40b8-4485-8fc6-e30ddabb7bae",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 516.92883219000862,
+            "y": 307.93802003421166
+          },
+          "nodeIndex": "balance_sheet",
+          "nodeLineageTag": "35593c8a-71a0-40cb-ab45-f51acab53242",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": 301.76594533480682
+          },
+          "nodeIndex": "cash_flow",
+          "nodeLineageTag": "a3043521-bfb1-4abc-a12f-49b6719c6cdb",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1034.9288321900085,
+            "y": 240.9690100171058
+          },
+          "nodeIndex": "dcf_projection",
+          "nodeLineageTag": "ce683f51-78d6-4e3d-8bee-166ea15ffd82",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 231.02829413942885,
+            "y": -50
+          },
+          "nodeIndex": "income_statement",
+          "nodeLineageTag": "461eded1-09b8-4394-aeea-4fce1e5ae422",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1318.9288321900085,
+            "y": 178.9690100171058
+          },
+          "nodeIndex": "peer_comps",
+          "nodeLineageTag": "8054c57c-68a9-47e2-8a5d-61ea70a4c79f",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1602.9288321900085,
+            "y": 204.9690100171058
+          },
+          "nodeIndex": "price_data",
+          "nodeLineageTag": "38964f0d-9945-41ed-965d-64b2999ab7d0",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 516.92492531036987,
+            "y": 36.878955113009965
+          },
+          "nodeIndex": "revenue_by_product",
+          "nodeLineageTag": "256dc519-c4f9-4287-b7ec-3c34a9b62f77",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1886.9288321900085,
+            "y": 240.9690100171058
+          },
+          "nodeIndex": "valuation_methods",
+          "nodeLineageTag": "d38ac306-b74e-414a-b498-e4b92e71528b",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2170.9288321900085,
+            "y": 264.9690100171058
+          },
+          "nodeIndex": "valuation_summary",
+          "nodeLineageTag": "81ff152d-9864-4a9c-bb04-7e0bfdb830b8",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

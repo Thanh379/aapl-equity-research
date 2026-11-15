@@ -1,0 +1,92 @@
+table _Measures
+	lineageTag: 842672cf-40b8-4485-8fc6-e30ddabb7bae
+
+	measure 'Revenue ($B)' = SUM(income_statement[total_revenue]) / 1000
+		formatString: $#,0.0
+		lineageTag: 8dad7f70-daea-4797-ad48-df726ee2da53
+
+	measure 'Net Income ($B)' = SUM(income_statement[net_income]) / 1000
+		formatString: $#,0.0
+		lineageTag: 0fe1312f-0b00-4362-aa12-33d387ebe3d3
+
+	measure 'Free Cash Flow ($B)' = SUM(cash_flow[free_cash_flow]) / 1000
+		formatString: $#,0.0
+		lineageTag: 61b9a63f-d97c-455c-9da3-7ae3148e674a
+
+	measure 'Cash Returned ($B)' = -(SUM(cash_flow[dividends_paid]) + SUM(cash_flow[share_repurchases])) / 1000
+		formatString: $#,0.0
+		lineageTag: 564a8e20-8ed3-424e-8819-e10f002482dd
+
+	measure 'Gross Margin' = DIVIDE(SUM(income_statement[gross_profit]), SUM(income_statement[total_revenue]))
+		formatString: 0.0%
+		lineageTag: 80473752-ab16-4e37-975d-05607e271219
+
+	measure 'Operating Margin' = DIVIDE(SUM(income_statement[operating_income]), SUM(income_statement[total_revenue]))
+		formatString: 0.0%
+		lineageTag: dd256aa8-8c4a-41a3-8221-4346900a78db
+
+	measure 'FCF Margin' = DIVIDE(SUM(cash_flow[free_cash_flow]), SUM(income_statement[total_revenue]))
+		formatString: 0.0%
+		lineageTag: 56944cce-5f58-4c4e-bd33-78e0ca7f5004
+
+	measure 'Services Share' = DIVIDE(CALCULATE(SUM(revenue_by_product[revenue]), revenue_by_product[product] = "Services"), SUM(revenue_by_product[revenue]))
+		formatString: 0.0%
+		lineageTag: 06337e1e-b0cd-493b-a24b-00c5b2db0aa0
+
+	measure 'FY2026 Revenue ($B)' = CALCULATE([Revenue ($B)], income_statement[fiscal_year] = "2026")
+		formatString: $#,0.0
+		lineageTag: 5853e0de-77ff-4629-9be0-314d5d714a59
+
+	measure 'FY2026 Net Income ($B)' = CALCULATE([Net Income ($B)], income_statement[fiscal_year] = "2026")
+		formatString: $#,0.0
+		lineageTag: e8fbe7ec-bc99-4aca-a1c9-389a2f7cc4a4
+
+	measure 'FY2026 Free Cash Flow ($B)' = CALCULATE([Free Cash Flow ($B)], income_statement[fiscal_year] = "2026")
+		formatString: $#,0.0
+		lineageTag: a4a39dae-8748-4496-b7fd-b3bc212b6d08
+
+	measure 'FY2026 Operating Margin' = CALCULATE([Operating Margin], income_statement[fiscal_year] = "2026")
+		formatString: 0.0%
+		lineageTag: 1f67f5a4-5a30-4138-98e8-77cad18951da
+
+	measure 'Market Price' = CALCULATE(MAX(valuation_summary[value]), valuation_summary[metric] = "Share price")
+		formatString: $#,0.00
+		lineageTag: 8cc83911-61cb-42ef-9319-86d212143991
+
+	measure 'Target Price' = CALCULATE(MAX(valuation_summary[value]), valuation_summary[metric] = "Target price")
+		formatString: $#,0.00
+		lineageTag: cbfd120f-ce56-4157-b554-42db62378a22
+
+	measure 'DCF Value' = CALCULATE(MAX(valuation_summary[value]), valuation_summary[metric] = "DCF value per share")
+		formatString: $#,0.00
+		lineageTag: 44b3c52f-8c3e-4378-a390-ac036d3b082f
+
+	measure WACC = CALCULATE(MAX(valuation_summary[value]), valuation_summary[metric] = "WACC")
+		formatString: 0.00%
+		lineageTag: d503eec2-ff7b-404f-9e47-33dc9440938d
+
+	measure Upside = DIVIDE([Target Price], [Market Price]) - 1
+		formatString: 0.0%
+		lineageTag: 561d3487-dd7f-4550-aec4-bb24dcda0dc9
+
+	measure Rating = SWITCH(TRUE(), [Upside] > 0.15, "BUY", [Upside] < -0.15, "SELL", "HOLD")
+		lineageTag: abcaa0a0-bcb3-4d3b-b424-0a56bfb1cde4
+
+	measure 'AAPL Close' = CALCULATE(AVERAGE(price_data[close]), price_data[ticker] = "AAPL")
+		formatString: $#,0.00
+		lineageTag: d07c9a2c-ea66-461e-9a69-7e8dbea6e892
+
+	column Measures
+		dataType: string
+		isHidden
+		lineageTag: 4e60bf54-bd78-4047-aa3d-17a119284360
+		summarizeBy: none
+		sourceColumn: Measures
+
+	partition _Measures = m
+		mode: import
+		source =
+				let
+				    Source = #table(type table [Measures = text], {})
+				in
+				    Source

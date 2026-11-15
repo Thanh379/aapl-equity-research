@@ -1,0 +1,12 @@
+{
+  "excel_cached_values": {
+    "dcf": 138.864465196399,
+    "comps": 214.935082525633,
+    "target": 176.899773861016,
+    "price": 356.27,
+    "upside": -0.503467106798169,
+    "rating": "SELL"
+  },
+  "cached_formula_errors": [],
+  "note": "Cached workbook values checked; Excel recalculation was not performed in this session. All three notebooks were executed."
+}

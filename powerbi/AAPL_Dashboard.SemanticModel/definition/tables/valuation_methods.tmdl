@@ -1,0 +1,48 @@
+table valuation_methods
+	lineageTag: d38ac306-b74e-414a-b498-e4b92e71528b
+
+	column metric
+		dataType: string
+		isHidden
+		lineageTag: fa42e9c1-ccfb-4175-b41b-dc5e6483f2f7
+		summarizeBy: none
+		sourceColumn: metric
+
+	column method
+		dataType: string
+		lineageTag: ea1ba8c0-dd9b-4836-b3e5-f8bd4b07f29d
+		summarizeBy: none
+		sourceColumn: method
+		sortByColumn: sort_order
+
+	column sort_order
+		dataType: int64
+		isHidden
+		lineageTag: 6fb1c644-9e10-470e-a445-60e04324d007
+		summarizeBy: none
+		sourceColumn: sort_order
+
+	column value
+		dataType: double
+		formatString: $#,0
+		lineageTag: bb5e90d0-04f0-434b-b0c9-33728949d868
+		summarizeBy: none
+		sourceColumn: value
+
+	partition valuation_methods = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ProjectFolder & "powerbi\valuation_summary.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Labels = #table({"metric", "method", "sort_order"}, {
+				        {"Share price", "Market price", 1},
+				        {"Comps EV/EBITDA value", "Comps: EV/EBITDA", 2},
+				        {"Comps forward P/E value", "Comps: forward P/E", 3},
+				        {"Target price", "Target price (50/50)", 4},
+				        {"DCF value per share", "DCF (base case)", 5}}),
+				    Joined = Table.NestedJoin(Labels, {"metric"}, Headers, {"metric"}, "v", JoinKind.LeftOuter),
+				    Expanded = Table.ExpandTableColumn(Joined, "v", {"value"}),
+				    Typed = Table.TransformColumnTypes(Expanded, {{"metric", type text}, {"method", type text}, {"sort_order", Int64.Type}, {"value", type number}}, "en-US")
+				in
+				    Typed

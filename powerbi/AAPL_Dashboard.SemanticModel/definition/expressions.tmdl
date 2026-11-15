@@ -1,0 +1,4 @@
+expression ProjectFolder = "C:\Users\thanh\Documents\aapl-equity-research\" meta [IsParameterQuery = true, Type = "Text", IsParameterQueryRequired = true]
+	lineageTag: 7c56be7a-1f60-4663-bff3-f89b8a83bd27
+
+	annotation PBI_ResultType = Text

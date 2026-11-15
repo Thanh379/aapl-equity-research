@@ -1,0 +1,17 @@
+.ipynb_checkpoints/
+__pycache__/
+data/raw/*
+!data/raw/price_data_long.csv
+!data/raw/yf_income_statement.csv
+!data/raw/yf_balance_sheet.csv
+!data/raw/yf_cash_flow.csv
+~$*.xlsx
+*.pbix.bak
+.env
+.env.*
+!.env.example
+*.log
+
+# Power BI project local files
+**/.pbi/localSettings.json
+**/.pbi/cache.abf

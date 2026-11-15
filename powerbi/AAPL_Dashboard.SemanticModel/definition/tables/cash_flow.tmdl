@@ -1,0 +1,73 @@
+table cash_flow
+	lineageTag: a3043521-bfb1-4abc-a12f-49b6719c6cdb
+
+	column fiscal_year
+		dataType: string
+		lineageTag: 0c6a097d-bc9f-4a85-9995-edab851403bf
+		summarizeBy: none
+		sourceColumn: fiscal_year
+
+	column operating_cash_flow
+		dataType: double
+		formatString: #,0.##
+		lineageTag: 2e19122e-fe42-4bcf-9bd7-75dd54661cca
+		summarizeBy: sum
+		sourceColumn: operating_cash_flow
+
+	column capital_expenditure
+		dataType: double
+		formatString: #,0.##
+		lineageTag: e2848594-1ae3-48ec-9cfa-1c7d0254afba
+		summarizeBy: sum
+		sourceColumn: capital_expenditure
+
+	column free_cash_flow
+		dataType: double
+		formatString: #,0.##
+		lineageTag: 99ecefef-65e9-422e-9b33-0689f622663f
+		summarizeBy: sum
+		sourceColumn: free_cash_flow
+
+	column depreciation_amortization
+		dataType: double
+		formatString: #,0.##
+		lineageTag: 88600a13-0558-4420-bb23-2e94c521f077
+		summarizeBy: sum
+		sourceColumn: depreciation_amortization
+
+	column stock_based_compensation
+		dataType: double
+		formatString: #,0.##
+		lineageTag: 4f348ca5-8a7b-4cb8-8ca0-cc01d74af1f9
+		summarizeBy: sum
+		sourceColumn: stock_based_compensation
+
+	column dividends_paid
+		dataType: double
+		formatString: #,0.##
+		lineageTag: 42ef4cd7-e6bf-4f8c-961b-ed4837e0f698
+		summarizeBy: sum
+		sourceColumn: dividends_paid
+
+	column share_repurchases
+		dataType: double
+		formatString: #,0.##
+		lineageTag: 07a58c12-d2bf-499e-beb9-3d1283843343
+		summarizeBy: sum
+		sourceColumn: share_repurchases
+
+	partition cash_flow = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ProjectFolder & "data\cash_flow.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    TextCols = {"fiscal_year"},
+				    DateCols = {},
+				    NumberCols = List.Difference(Table.ColumnNames(Headers), TextCols & DateCols),
+				    Typed = Table.TransformColumnTypes(Headers,
+				        List.Transform(TextCols, each {_, type text}) &
+				        List.Transform(DateCols, each {_, type date}) &
+				        List.Transform(NumberCols, each {_, type number}), "en-US")
+				in
+				    Typed

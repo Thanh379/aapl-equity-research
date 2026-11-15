@@ -1,0 +1,114 @@
+table peer_comps
+	lineageTag: 8054c57c-68a9-47e2-8a5d-61ea70a4c79f
+
+	column ticker
+		dataType: string
+		lineageTag: e45b63a0-9e66-404e-8068-d8b0e6d09945
+		summarizeBy: none
+		sourceColumn: ticker
+
+	column company
+		dataType: string
+		lineageTag: ba99cbcf-0630-46d4-852d-db58171df006
+		summarizeBy: none
+		sourceColumn: company
+
+	column price
+		dataType: double
+		formatString: #,0.##
+		lineageTag: 0c23c045-addc-44e9-8339-ea8a06f91269
+		summarizeBy: sum
+		sourceColumn: price
+
+	column market_cap_b
+		dataType: double
+		formatString: #,0.##
+		lineageTag: 09eee54a-3955-42a2-9814-375b4c78bc7a
+		summarizeBy: sum
+		sourceColumn: market_cap_b
+
+	column enterprise_value_b
+		dataType: double
+		formatString: #,0.##
+		lineageTag: a6809ee7-8f56-4637-9508-da2a93dc2268
+		summarizeBy: sum
+		sourceColumn: enterprise_value_b
+
+	column ttm_revenue_b
+		dataType: double
+		formatString: #,0.##
+		lineageTag: 6434d5e2-ffbd-47e7-a3fa-1428cd47de1b
+		summarizeBy: sum
+		sourceColumn: ttm_revenue_b
+
+	column ttm_ebitda_b
+		dataType: double
+		formatString: #,0.##
+		lineageTag: dc8322da-c8d3-4561-8a9c-2ccc321bbfc1
+		summarizeBy: sum
+		sourceColumn: ttm_ebitda_b
+
+	column ttm_net_income_b
+		dataType: double
+		formatString: #,0.##
+		lineageTag: f8f29a8c-24a8-416b-a9e2-40f258a3f2f1
+		summarizeBy: sum
+		sourceColumn: ttm_net_income_b
+
+	column trailing_pe
+		dataType: double
+		formatString: #,0.##
+		lineageTag: 9c329257-3be9-47e3-bd71-d43c973e84cd
+		summarizeBy: sum
+		sourceColumn: trailing_pe
+
+	column forward_pe
+		dataType: double
+		formatString: 0.0"x"
+		lineageTag: bb24a26a-cc88-4983-a1d1-38c004532ce7
+		summarizeBy: sum
+		sourceColumn: forward_pe
+
+	column ev_ebitda
+		dataType: double
+		formatString: 0.0"x"
+		lineageTag: f210c7cf-8c04-4ee8-8172-bb6474691b41
+		summarizeBy: sum
+		sourceColumn: ev_ebitda
+
+	column ev_sales
+		dataType: double
+		formatString: #,0.##
+		lineageTag: 3cf2d7d8-55b1-4eee-a80a-5bb2ab016753
+		summarizeBy: sum
+		sourceColumn: ev_sales
+
+	column operating_margin
+		dataType: double
+		formatString: #,0.##
+		lineageTag: 54661f01-640b-4b54-a2ab-bcac25ee36a3
+		summarizeBy: sum
+		sourceColumn: operating_margin
+
+	column beta_5y
+		dataType: double
+		formatString: #,0.##
+		lineageTag: 85be7933-26c0-489c-bdbe-76ba9cde86df
+		summarizeBy: sum
+		sourceColumn: beta_5y
+
+	partition peer_comps = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ProjectFolder & "data\peer_comps.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    TextCols = {"ticker", "company"},
+				    DateCols = {},
+				    NumberCols = List.Difference(Table.ColumnNames(Headers), TextCols & DateCols),
+				    Typed = Table.TransformColumnTypes(Headers,
+				        List.Transform(TextCols, each {_, type text}) &
+				        List.Transform(DateCols, each {_, type date}) &
+				        List.Transform(NumberCols, each {_, type number}), "en-US")
+				in
+				    Typed

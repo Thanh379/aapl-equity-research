@@ -1,0 +1,117 @@
+{
+  "validated_at_utc": "2026-11-15T16:28:20.457783+00:00",
+  "data_as_of": "2026-11-13",
+  "backups": {
+    "income_statement": "income_statement_backup_20261115_162820",
+    "balance_sheet": "balance_sheet_backup_20261115_162820",
+    "cash_flow": "cash_flow_backup_20261115_162820",
+    "revenue_by_product": "revenue_by_product_backup_20261115_162820",
+    "price_data": "price_data_backup_20261115_162820"
+  },
+  "scripts": [
+    {
+      "script": "01_setup_schema.sql",
+      "status": "PASS",
+      "results": [
+        {
+          "file": "01_setup_schema_q1.csv",
+          "rows": 5
+        },
+        {
+          "file": "01_setup_schema_q2.csv",
+          "rows": 5
+        }
+      ]
+    },
+    {
+      "script": "02_growth_analysis.sql",
+      "status": "PASS",
+      "results": [
+        {
+          "file": "02_growth_analysis_q1.csv",
+          "rows": 5
+        }
+      ]
+    },
+    {
+      "script": "03_margin_trend.sql",
+      "status": "PASS",
+      "results": [
+        {
+          "file": "03_margin_trend_q1.csv",
+          "rows": 5
+        }
+      ]
+    },
+    {
+      "script": "04_liquidity_leverage.sql",
+      "status": "PASS",
+      "results": [
+        {
+          "file": "04_liquidity_leverage_q1.csv",
+          "rows": 5
+        }
+      ]
+    },
+    {
+      "script": "05_cash_returns.sql",
+      "status": "PASS",
+      "results": [
+        {
+          "file": "05_cash_returns_q1.csv",
+          "rows": 5
+        }
+      ]
+    },
+    {
+      "script": "06_product_mix.sql",
+      "status": "PASS",
+      "results": [
+        {
+          "file": "06_product_mix_q1.csv",
+          "rows": 25
+        }
+      ]
+    },
+    {
+      "script": "07_price_vs_earnings.sql",
+      "status": "PASS",
+      "results": [
+        {
+          "file": "07_price_vs_earnings_q1.csv",
+          "rows": 5
+        },
+        {
+          "file": "07_price_vs_earnings_q2.csv",
+          "rows": 60
+        }
+      ]
+    }
+  ],
+  "checks": {
+    "income_statement": {
+      "rows": 5,
+      "matches_csv": true
+    },
+    "balance_sheet": {
+      "rows": 5,
+      "matches_csv": true
+    },
+    "cash_flow": {
+      "rows": 5,
+      "matches_csv": true
+    },
+    "revenue_by_product": {
+      "rows": 25,
+      "matches_csv": true
+    },
+    "price_data": {
+      "rows": 14925,
+      "matches_csv": true
+    },
+    "accounting_equation": "PASS",
+    "free_cash_flow": "PASS",
+    "product_revenue": "PASS"
+  },
+  "mysql_version": "8.0.44"
+}

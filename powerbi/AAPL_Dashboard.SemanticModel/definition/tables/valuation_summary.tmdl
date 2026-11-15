@@ -1,0 +1,26 @@
+table valuation_summary
+	lineageTag: 81ff152d-9864-4a9c-bb04-7e0bfdb830b8
+
+	column metric
+		dataType: string
+		lineageTag: 0118be07-13ac-4a38-a304-68262e814b5a
+		summarizeBy: none
+		sourceColumn: metric
+
+	column value
+		dataType: double
+		formatString: #,0.##
+		lineageTag: 21fc90eb-f8a4-49a3-b366-758017e022c9
+		summarizeBy: none
+		sourceColumn: value
+
+	partition valuation_summary = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ProjectFolder & "powerbi\valuation_summary.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    NoRating = Table.SelectRows(Headers, each [metric] <> "Rating"),
+				    Typed = Table.TransformColumnTypes(NoRating, {{"metric", type text}, {"value", type number}}, "en-US")
+				in
+				    Typed

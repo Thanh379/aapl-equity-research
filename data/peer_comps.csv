@@ -1,0 +1,5 @@
+ticker,company,price,market_cap_b,enterprise_value_b,ttm_revenue_b,ttm_ebitda_b,ttm_net_income_b,trailing_pe,forward_pe,ev_ebitda,ev_sales,operating_margin,beta_5y
+AAPL,Apple,356.27,5180,5130,478.83,171.49,132.18,39.67,37.82,29.94,10.72,0.330,1.09
+MSFT,Microsoft,523.88,3890,3960,346.45,205.69,142.63,27.35,25.24,19.25,11.43,0.471,1.05
+GOOGL,Alphabet,295.77,3640,3520,471.10,185.52,235.69,15.44,21.45,18.98,7.47,0.333,1.23
+META,Meta Platforms,641.69,1640,1670,241.61,116.19,75.25,21.88,19.48,14.40,6.92,0.378,1.28

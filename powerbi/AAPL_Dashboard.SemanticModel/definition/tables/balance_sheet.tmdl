@@ -1,0 +1,101 @@
+table balance_sheet
+	lineageTag: 35593c8a-71a0-40cb-ab45-f51acab53242
+
+	column fiscal_year
+		dataType: string
+		lineageTag: 0c074444-db15-46c0-b692-6ef2416155d1
+		summarizeBy: none
+		sourceColumn: fiscal_year
+
+	column total_assets
+		dataType: double
+		formatString: #,0.##
+		lineageTag: 1d3882e1-9054-4a12-a819-87d68bf29d9e
+		summarizeBy: sum
+		sourceColumn: total_assets
+
+	column current_assets
+		dataType: double
+		formatString: #,0.##
+		lineageTag: 1a97f6ff-a7e8-47e7-ba2a-2a7c0ca3a85f
+		summarizeBy: sum
+		sourceColumn: current_assets
+
+	column current_liabilities
+		dataType: double
+		formatString: #,0.##
+		lineageTag: aa7f2002-3731-4b01-9fa9-451cf955eea7
+		summarizeBy: sum
+		sourceColumn: current_liabilities
+
+	column cash_and_equivalents
+		dataType: double
+		formatString: #,0.##
+		lineageTag: 83ad0e3d-a90b-4a30-9dc3-a7ca7db6cc6a
+		summarizeBy: sum
+		sourceColumn: cash_and_equivalents
+
+	column marketable_securities_current
+		dataType: double
+		formatString: #,0.##
+		lineageTag: fe5532b2-dd1d-4b16-88b6-1a1cbe28bd53
+		summarizeBy: sum
+		sourceColumn: marketable_securities_current
+
+	column marketable_securities_noncurrent
+		dataType: double
+		formatString: #,0.##
+		lineageTag: 3abfd7e1-05d6-4f0a-9f0f-6081847a77b3
+		summarizeBy: sum
+		sourceColumn: marketable_securities_noncurrent
+
+	column inventory
+		dataType: double
+		formatString: #,0.##
+		lineageTag: b999c9ae-2edb-462b-80d4-25067f954fc5
+		summarizeBy: sum
+		sourceColumn: inventory
+
+	column accounts_receivable
+		dataType: double
+		formatString: #,0.##
+		lineageTag: 03e00870-802c-444e-9fcb-b7892817af0b
+		summarizeBy: sum
+		sourceColumn: accounts_receivable
+
+	column total_liabilities
+		dataType: double
+		formatString: #,0.##
+		lineageTag: 7ecb76cc-3d0d-4a6b-94f9-c6d7431e1456
+		summarizeBy: sum
+		sourceColumn: total_liabilities
+
+	column total_debt
+		dataType: double
+		formatString: #,0.##
+		lineageTag: b36216bf-9b83-402c-8d10-2e3daddfe232
+		summarizeBy: sum
+		sourceColumn: total_debt
+
+	column stockholders_equity
+		dataType: double
+		formatString: #,0.##
+		lineageTag: 668f18eb-374b-4aba-ac90-61169ce91d84
+		summarizeBy: sum
+		sourceColumn: stockholders_equity
+
+	partition balance_sheet = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ProjectFolder & "data\balance_sheet.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    TextCols = {"fiscal_year"},
+				    DateCols = {},
+				    NumberCols = List.Difference(Table.ColumnNames(Headers), TextCols & DateCols),
+				    Typed = Table.TransformColumnTypes(Headers,
+				        List.Transform(TextCols, each {_, type text}) &
+				        List.Transform(DateCols, each {_, type date}) &
+				        List.Transform(NumberCols, each {_, type number}), "en-US")
+				in
+				    Typed
